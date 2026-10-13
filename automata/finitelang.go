@@ -8,6 +8,7 @@ package automata
 // to machine alphabets.
 type FiniteLanguage struct {
 	// your representation here
+	words map[string]struct{} 
 }
 
 // NewFiniteLanguage returns the language whose members are exactly the given
@@ -15,11 +16,22 @@ type FiniteLanguage struct {
 // the empty language. There is no error return because a list of words cannot
 // be malformed.
 func NewFiniteLanguage(words ...Word) *FiniteLanguage {
-	panic("unimplemented: phase 1.0 NewFiniteLanguage")
+	l := &FiniteLanguage{
+		words: make(map[string]struct{}, len(words)),
+	}	
+
+	for _, w := range words {
+		l.words[string(w)] = struct{}{}
+	}
+	return l
 }
 
 // Contains reports whether w is exactly one of the language's words. A nil w
 // is the empty word.
 func (l *FiniteLanguage) Contains(w Word) bool {
-	panic("unimplemented: phase 1.0 FiniteLanguage.Contains")
+	if l == nil {
+		return false
+	}
+	_, ok := l.words[string(w)]
+	return ok
 }
